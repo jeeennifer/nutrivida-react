@@ -1,0 +1,32 @@
+# Acuerdos para la tutoría de NutriVida React
+
+Esta guía registra las decisiones de la conversación para retomarlas desde el repositorio.
+
+## Estilos acordados
+
+| Archivo | Responsabilidad | Importación |
+|---|---|---|
+| `src/index.css` | Base global: tipografía, colores base, body, encabezados y ajustes generales | `src/main.jsx` |
+| `src/App.css` | Apariencia de las secciones de NutriVida y refinamientos de Bootstrap | `src/App.jsx` |
+
+Se mantiene el nombre `App.css` con A mayúscula. La separación organiza los estilos; ambos archivos contienen CSS global. Los estilos de ejemplo de Vite se sustituyen por los de NutriVida. La distribución responsive continúa con React Bootstrap.
+
+## Referencias y alcance
+
+- `nutrivida`: fuente de apariencia, textos, imágenes y funcionalidades.
+- `tienda-react`: referencia de arquitectura Atomic Design, configuración, React Bootstrap y comentarios estructurados.
+- `nutrivida-react`: repositorio destino.
+- Los organismos, moléculas y átomos reciben datos y eventos por props; la lógica y la persistencia pertenecen a containers.
+- Mantener exactamente cinco niveles en `src/components`: atoms, molecules, organisms, templates y pages.
+- No añadir Vitest ni pruebas unitarias durante esta etapa.
+
+## Forma de trabajar
+
+1. Avanzar en este orden: base → utils → atoms → molecules → organisms → templates → pages → containers.
+2. Entregar el código de uno a tres archivos como máximo por turno.
+3. Indicar la ruta exacta de cada archivo y explicar brevemente qué cambió desde HTML/JS a React.
+4. Explicar el uso de React Bootstrap y los breakpoints responsive cuando corresponda.
+5. Esperar a que la estudiante pruebe el bloque y confirme que funciona antes de entregar el siguiente.
+6. Antes del primer bloque, comprobar si su carpeta local conserva la base inicial de Vite o contiene el proyecto completo del ZIP. Los bloques deben poder ejecutarse sin importar módulos todavía no entregados.
+
+El ZIP de esta rama contiene la versión completa de referencia con los estilos separados. El código migrado está dentro del ZIP; los archivos de la raíz de esta rama corresponden a la base previa. El README incluido en el ZIP también conserva estos acuerdos.

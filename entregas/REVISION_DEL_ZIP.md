@@ -2,19 +2,19 @@
 
 ## Resultado
 
-El ZIP contiene **110 archivos del proyecto** y no depende del entorno cloud de Codex para ejecutarse. Se revisaron su inventario completo, los archivos de configuración, los scripts npm, las dependencias, las rutas de recursos y las referencias a herramientas o directorios del entorno.
+El ZIP contiene **111 archivos del proyecto** y no depende del entorno cloud de Codex para ejecutarse. Se revisaron su inventario completo, los archivos de configuración, los scripts npm, las dependencias, las rutas de recursos y las referencias a herramientas o directorios del entorno.
 
-El archivo se conserva exactamente como fue entregado tras la migración. Esta revisión no modifica el ZIP ni elimina archivos opcionales sin que lo solicites.
+Esta versión incorpora la separación de estilos solicitada: `src/index.css` para la base global y `src/App.css` para las secciones de NutriVida. Se actualizó su importación en `src/App.jsx` y se documentó el acuerdo en el README. No se modificaron otras reglas ni funcionalidades de la aplicación.
 
 | Dato | Valor |
 |---|---|
 | Archivo | `entregas/nutrivida-react-migrado.zip` |
 | Carpeta al descomprimir | `nutrivida-react/` |
-| Tamaño | 4.673.182 bytes, aproximadamente 4,7 MB |
-| Archivos incluidos | 110 |
-| SHA-256 | `c7adc78c8843768a8fd76e35e7ca5a7ff6fe6dd05b5b2acb42dc6717e3a947f5` |
+| Tamaño | 4.673.815 bytes, aproximadamente 4,7 MB |
+| Archivos incluidos | 111 |
+| SHA-256 | `5efaad4e54914c99f9be891149af19f827172d6ddc061e2f5ed2874c50287621` |
 
-La rama `entrega/migracion-nutrivida-zip` incorpora el ZIP y este informe sobre la base original del repositorio. **La versión migrada está dentro del ZIP**; al abrir los archivos de la raíz de esta rama se sigue viendo la base previa a la migración. `main` no se modifica con esta entrega.
+La rama `entrega/migracion-nutrivida-css` incorpora el ZIP actualizado, este informe y `ETAPA_2_ACUERDOS.md` sobre la entrega anterior. **La versión migrada está dentro del ZIP**; al abrir los archivos de la raíz de esta rama se sigue viendo la base previa a la migración. `main` no se modifica con esta entrega.
 
 ## 1. Qué NO se incluyó del entorno cloud
 
@@ -110,3 +110,11 @@ El botón general **Code → Download ZIP** de GitHub descarga toda la rama: den
 Si vas a copiar la migración sobre tu clon existente, conserva su carpeta `.git` y revisa los cambios antes de hacer commits. Para probarla por separado puedes descomprimirla en otra carpeta sin tocar tu copia de trabajo actual.
 
 **Conclusión:** no hay que retirar ningún archivo por ser exclusivo del entorno cloud. Los elementos opcionales de la entrega son herramientas/documentación normales del proyecto y una imagen original actualmente sin uso.
+
+## 7. Separación de CSS acordada para la Etapa 2
+
+- `src/index.css` se importa desde `src/main.jsx` y contiene las reglas globales.
+- `src/App.css` se importa desde `src/App.jsx` y contiene los estilos de las secciones de NutriVida.
+- Se conservaron todas las reglas CSS y su secuencia. La compilación genera los mismos archivos CSS y JavaScript de producción que la versión anterior.
+- La compilación y Oxlint pasan. La comprobación de apariencia compara portada, planes y contacto a 360, 768 y 1440 px.
+- El README registra esta división y la tutoría con uno a tres archivos por turno, esperando confirmación antes del siguiente bloque.

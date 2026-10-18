@@ -1,63 +1,64 @@
-import { Col, Container, Form, Row } from 'react-bootstrap'
-import { BotonNutrivida } from './components/atoms/BotonNutrivida'
-import { ImagenNutrivida } from './components/atoms/ImagenNutrivida'
-import { EtiquetaCampo } from './components/atoms/EtiquetaCampo'
-import { EntradaCampo } from './components/atoms/EntradaCampo'
-import { MensajeFormulario } from './components/atoms/MensajeFormulario'
-import { PrecioPlan } from './components/atoms/PrecioPlan'
-import { formatearPrecio } from './utils/formato'
+import { BrowserRouter } from 'react-router-dom'
+import { Col, Container, Row } from 'react-bootstrap'
+import { TarjetaPlan } from './components/molecules/TarjetaPlan'
+import { TarjetaArticulo } from './components/molecules/TarjetaArticulo'
+import { TarjetaIntegrante } from './components/molecules/TarjetaIntegrante'
+import { presentarPlan } from './utils/presentacion'
 import './App.css'
 
-// BASE: vista provisional para comprobar los seis átomos con datos de ejemplo.
-// Las páginas definitivas se conectarán al preparar el enrutamiento.
+// BASE: galería provisional para comprobar los tres tipos de tarjetas.
+// BrowserRouter se moverá a main.jsx al conectar las páginas definitivas.
 function App() {
-  const mensajeEjemplo = {
-    tipo: 'exito',
-    texto: '¡Gracias por escribirnos! Tu mensaje fue enviado correctamente.',
+  const planEjemplo = presentarPlan({
+    id: 1,
+    etiqueta: 'Nutrición Deportiva',
+    nombre: 'Consulta Deportiva con Ana Soto',
+    descripcion: 'Evaluación completa enfocada en rendimiento físico y masa muscular.',
+    precio: 25000,
+    imagen: '/assets/img/plan-consulta.jpg',
+  })
+
+  const articuloEjemplo = {
+    id: 2,
+    titulo: '5 mitos sobre las dietas restrictivas',
+    fecha: '2 de agosto, 2026',
+    categoria: 'Bienestar',
+    descripcion: 'Desmentimos las creencias más comunes sobre bajar de peso rápido.',
+    imagen: '/assets/img/dieta.jpg',
+    alt: 'Mitos de las dietas restrictivas',
+  }
+
+  const integranteEjemplo = {
+    nombre: 'Ana Soto',
+    cargo: 'Especialista en Nutrición Deportiva',
+    imagen: '/assets/img/AnaSoto.jpg',
   }
 
   return (
-    <Container as="main" className="py-4">
-      <h1>NutriVida</h1>
-      <p>Clínica de Asesoría Nutricional</p>
+    <BrowserRouter>
+      <Container as="main" className="py-4 px-3">
+        <h1>NutriVida</h1>
+        <p className="mb-4">Clínica de Asesoría Nutricional</p>
 
-      <Row className="g-4 mt-3 align-items-center">
-        <Col xs={12} md={6}>
-          <ImagenNutrivida
-            src="/assets/img/Nutri.png"
-            alt="Icono de NutriVida"
-          />
-        </Col>
-
-        <Col xs={12} md={6}>
-          <p className="mb-3">
-            Consulta Deportiva con Ana Soto:{' '}
-            <PrecioPlan className="fw-bold">
-              {formatearPrecio(25000)}
-            </PrecioPlan>
-          </p>
-
-          <Form.Group className="mb-3">
-            <EtiquetaCampo id="correo-ejemplo">
-              Correo electrónico
-            </EtiquetaCampo>
-            <EntradaCampo
-              id="correo-ejemplo"
-              name="correo"
-              tipo="email"
-              value="paciente@duoc.cl"
-              readOnly
+        <Row className="nv-grilla">
+          <Col xs={12} md={6} lg={4}>
+            <TarjetaPlan
+              plan={planEjemplo}
+              mostrarAgendar
+              onAgendar={(id) => console.info('Agendar plan:', id)}
             />
-          </Form.Group>
+          </Col>
 
-          <BotonNutrivida>Agendar</BotonNutrivida>
+          <Col xs={12} md={6} lg={4}>
+            <TarjetaArticulo articulo={articuloEjemplo} />
+          </Col>
 
-          <div className="mt-3">
-            <MensajeFormulario mensaje={mensajeEjemplo} />
-          </div>
-        </Col>
-      </Row>
-    </Container>
+          <Col xs={12} md={6} lg={4}>
+            <TarjetaIntegrante integrante={integranteEjemplo} />
+          </Col>
+        </Row>
+      </Container>
+    </BrowserRouter>
   )
 }
 

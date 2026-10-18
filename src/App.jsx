@@ -1,48 +1,94 @@
-import { BrowserRouter } from 'react-router-dom'
-import { MainTemplate } from './components/templates/MainTemplate'
-import { PortadaTemplate } from './components/templates/PortadaTemplate'
-import { Header } from './components/organisms/Header'
-import { Footer } from './components/organisms/Footer'
-import { PLANES_INICIALES } from './data/planesData'
-import { CONTENIDO } from './data/contenido'
-import { presentarPlan } from './utils/presentacion'
+import { Route, Routes } from 'react-router-dom'
+import { SitioContainer } from './containers/SitioContainer'
+import { AccesoContainer } from './containers/AccesoContainer'
+import { RutaAnteriorContainer } from './containers/RutaAnteriorContainer'
+import { InicioPage } from './components/pages/publicas/InicioPage'
+import { NosotrosPage } from './components/pages/publicas/NosotrosPage'
+import { ContactoPage } from './components/pages/publicas/ContactoPage'
+import { InicioAdminPage } from './components/pages/admin/InicioAdminPage'
+import { PlanesAdminPage } from './components/pages/admin/PlanesAdminPage'
+import { PlanAdminPage } from './components/pages/admin/PlanAdminPage'
+import { UsuariosAdminPage } from './components/pages/admin/UsuariosAdminPage'
+import { UsuarioAdminPage } from './components/pages/admin/UsuarioAdminPage'
+import { BlogPage } from './components/pages/blog/BlogPage'
+import { ArticuloPage } from './components/pages/blog/ArticuloPage'
+import { IngresoPage } from './components/pages/auth/IngresoPage'
+import { RegistroPage } from './components/pages/auth/RegistroPage'
+import { PlanesPage } from './components/pages/reservas/PlanesPage'
+import { DetallePlanPage } from './components/pages/reservas/DetallePlanPage'
+import { CarritoPage } from './components/pages/reservas/CarritoPage'
+import { AgendarCitaPage } from './components/pages/reservas/AgendarCitaPage'
+import { ConfirmacionPage } from './components/pages/reservas/ConfirmacionPage'
+import { NoEncontradaPage } from './components/pages/publicas/NoEncontradaPage'
 import './App.css'
 
-const ENLACES = [
-  { to: '/', texto: 'Inicio' },
-  { to: '/planes', texto: 'Planes' },
-  { to: '/nosotros', texto: 'Nosotros' },
-  { to: '/blog', texto: 'Blog' },
-  { to: '/contacto', texto: 'Contacto' },
+// COMPATIBILIDAD: conserva las diecinueve direcciones HTML originales.
+const RUTAS_ANTERIORES = [
+  ['index.html', '/'],
+  ['planes.html', '/planes'],
+  ['detalle-plan.html', '/planes', 'detalle'],
+  ['nosotros.html', '/nosotros'],
+  ['blog.html', '/blog'],
+  ['blog-detalle-1.html', '/blog/1'],
+  ['blog-detalle-2.html', '/blog/2'],
+  ['blog-detalle-3.html', '/blog/3'],
+  ['contacto.html', '/contacto'],
+  ['login.html', '/login'],
+  ['registro.html', '/registro'],
+  ['carrito.html', '/carrito'],
+  ['agendar-cita.html', '/agendar-cita'],
+  ['cita-confirmada.html', '/cita-confirmada'],
+  ['admin-home.html', '/admin'],
+  ['admin-planes.html', '/admin/planes'],
+  ['admin-plan-form.html', '/admin/planes/nuevo', 'plan'],
+  ['admin-usuarios.html', '/admin/usuarios'],
+  ['admin-usuario-form.html', '/admin/usuarios/nuevo', 'usuario'],
 ]
 
-const PIE = [
-  'NutriVida · Clínica de Asesoría Nutricional · Temuco, Región de La Araucanía',
-  'Desarrollado por: Vicente, Michael y Jennifer · DSY1104',
-]
-
-// BASE: montaje provisional de la portada con los datos originales.
-// Los containers gestionarán después la sesión, el menú y las reservas.
+// APLICACIÓN: define las rutas; los containers gestionan datos y acciones.
 function App() {
-  const destacados = PLANES_INICIALES.slice(0, 3).map(presentarPlan)
-
   return (
-    <BrowserRouter>
-      <MainTemplate
-        header={
-          <Header
-            enlaces={ENLACES}
-            logo="/assets/img/logo.png"
-            administrador={false}
-            sesion={null}
-            cantidad={0}
+    <Routes>
+      <Route element={<SitioContainer />}>
+        <Route index element={<InicioPage />} />
+        <Route path="nosotros" element={<NosotrosPage />} />
+        <Route path="contacto" element={<ContactoPage />} />
+        <Route path="blog" element={<BlogPage />} />
+        <Route path="blog/:id" element={<ArticuloPage />} />
+        <Route path="login" element={<IngresoPage />} />
+        <Route path="registro" element={<RegistroPage />} />
+        <Route path="planes" element={<PlanesPage />} />
+        <Route path="planes/:id" element={<DetallePlanPage />} />
+        <Route path="carrito" element={<CarritoPage />} />
+
+        <Route element={<AccesoContainer />}>
+          <Route path="agendar-cita" element={<AgendarCitaPage />} />
+          <Route path="cita-confirmada" element={<ConfirmacionPage />} />
+        </Route>
+
+        <Route element={<AccesoContainer administrador />}>
+          <Route path="admin" element={<InicioAdminPage />} />
+          <Route path="admin/planes" element={<PlanesAdminPage />} />
+          <Route path="admin/planes/nuevo" element={<PlanAdminPage />} />
+          <Route path="admin/planes/:id/editar" element={<PlanAdminPage />} />
+          <Route path="admin/usuarios" element={<UsuariosAdminPage />} />
+          <Route path="admin/usuarios/nuevo" element={<UsuarioAdminPage />} />
+          <Route path="admin/usuarios/:run/editar" element={<UsuarioAdminPage />} />
+        </Route>
+
+        {RUTAS_ANTERIORES.map(([ruta, destino, tipo]) => (
+          <Route
+            key={ruta}
+            path={ruta}
+            element={
+              <RutaAnteriorContainer destino={destino} tipo={tipo} />
+            }
           />
-        }
-        footer={<Footer lineas={PIE} />}
-      >
-        <PortadaTemplate hero={CONTENIDO.hero} planes={destacados} />
-      </MainTemplate>
-    </BrowserRouter>
+        ))}
+
+        <Route path="*" element={<NoEncontradaPage />} />
+      </Route>
+    </Routes>
   )
 }
 

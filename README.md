@@ -41,8 +41,6 @@ La aplicación funciona con datos locales. Su ejecución no requiere API, base d
 
 ```text
 nutrivida-react/
-├── docs/
-│   └── GUIA_MIGRACION.md
 ├── public/
 │   └── assets/img/
 ├── src/

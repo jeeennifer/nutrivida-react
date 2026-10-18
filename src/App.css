@@ -1,3 +1,56 @@
 /* ESTILOS DE NUTRIVIDA.
-   App.jsx importa este archivo.
-   Añadiremos los estilos de cada sección al construir sus componentes. */
+   App.jsx importa este archivo después de la base global.
+   Añadiremos las demás secciones conforme construyamos sus componentes. */
+
+/* BOTONES: apariencia del sitio original y ajustes de React Bootstrap. */
+.boton,
+.boton-ingresar {
+  display: inline-block;
+  border: 0;
+  background: #3d8c53;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+}
+
+.boton.btn {
+  font-size: 13.3333px;
+  line-height: normal;
+}
+
+.boton-ingresar,
+.boton-ingresar.btn {
+  padding: 8px 16px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.boton:hover,
+.boton:focus-visible,
+.boton-ingresar:hover,
+.boton-ingresar:focus-visible,
+.boton.btn:active {
+  background: #2e6b3f;
+  color: #fff;
+}
+
+.boton-secundario {
+  background: transparent;
+  color: #3d8c53;
+  border: 2px solid #3d8c53;
+}
+
+.boton-secundario:hover,
+.boton-secundario:focus-visible {
+  background: #3d8c53;
+  color: #fff;
+}
+
+.boton:disabled {
+  background: #3d8c53;
+  opacity: .65;
+}

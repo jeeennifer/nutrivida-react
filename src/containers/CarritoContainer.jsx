@@ -6,6 +6,7 @@ import { formatearPrecio } from '../utils/formato'
 import { presentarReservas } from '../utils/presentacion'
 import { ListaCarrito } from '../components/organisms/ListaCarrito'
 import { ResumenCarrito } from '../components/organisms/ResumenCarrito'
+import { guardarDestinoTrasLogin } from '../utils/almacenamiento'
 
 // CONTAINER: controla el resumen y conserva el destino al pedir iniciar sesión.
 export function CarritoContainer() {
@@ -24,7 +25,7 @@ export function CarritoContainer() {
     }
 
     if (!datos.sesion) {
-      localStorage.setItem('destinoTrasLogin', '/agendar-cita')
+        guardarDestinoTrasLogin('/agendar-cita')
       navigate('/login')
       return
     }

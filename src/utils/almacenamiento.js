@@ -1,7 +1,35 @@
-// PERSISTENCIA: conserva las claves del sitio HTML
+// PERSISTENCIA: única puerta de entrada a localStorage. Conserva las claves del sitio HTML.
+// Si el navegador bloquea el almacenamiento, la aplicación sigue funcionando sin guardar.
+
+const CLAVE_DESTINO = 'destinoTrasLogin'
+
+function leer(clave) {
+  try {
+    return localStorage.getItem(clave)
+  } catch {
+    return null
+  }
+}
+
+function escribir(clave, valor) {
+  try {
+    localStorage.setItem(clave, valor)
+  } catch {
+    // Sin almacenamiento disponible: simplemente no se guarda.
+  }
+}
+
+function borrar(clave) {
+  try {
+    localStorage.removeItem(clave)
+  } catch {
+    // Sin almacenamiento disponible: no hay nada que borrar.
+  }
+}
+
 export function leerLista(clave, inicial = []) {
   try {
-    const valor = JSON.parse(localStorage.getItem(clave))
+    const valor = JSON.parse(leer(clave))
     if (Array.isArray(valor)) return valor
   } catch {
     // Un JSON inválido no impide abrir la aplicación.
@@ -12,48 +40,52 @@ export function leerLista(clave, inicial = []) {
 
 export function leerObjeto(clave) {
   try {
-    return JSON.parse(localStorage.getItem(clave))
+    return JSON.parse(leer(clave))
   } catch {
     return null
   }
 }
 
 export function guardarDatos(clave, valor) {
-  localStorage.setItem(clave, JSON.stringify(valor))
+  escribir(clave, JSON.stringify(valor))
 }
 
 export function leerSesion() {
-  if (localStorage.getItem('sesionActiva') !== 'true') {
+  if (leer('sesionActiva') !== 'true') {
     return null
   }
-  const correo = localStorage.getItem('correoSesion')
-  return correo
-    ? { correo: correo.trim().toLowerCase() }
-    : null
+
+  const correo = leer('correoSesion')
+  return correo ? { correo: correo.trim().toLowerCase() } : null
 }
 
 export function persistirSesion(sesion) {
   if (sesion) {
-    localStorage.setItem('sesionActiva', 'true')
-    localStorage.setItem('correoSesion', sesion.correo)
-    localStorage.setItem('nombreSesion', sesion.nombre)
+    escribir('sesionActiva', 'true')
+    escribir('correoSesion', sesion.correo)
+    escribir('nombreSesion', sesion.nombre)
   } else {
-    const claves = [
-      'sesionActiva',
-      'correoSesion',
-      'nombreSesion',
-    ]
-
-    for (const clave of claves) {
-      localStorage.removeItem(clave)
+    for (const clave of ['sesionActiva', 'correoSesion', 'nombreSesion']) {
+      borrar(clave)
     }
   }
+}
+
+// ---------- A dónde seguir después de iniciar sesión ----------
+export function guardarDestinoTrasLogin(ruta) {
+  escribir(CLAVE_DESTINO, ruta)
+}
+
+export function borrarDestinoTrasLogin() {
+  borrar(CLAVE_DESTINO)
 }
 
 // Acepta el destino antiguo para continuar reservas
 // iniciadas en el sitio HTML.
 export function destinoPaciente() {
-  const destino = localStorage.getItem('destinoTrasLogin')
-  localStorage.removeItem('destinoTrasLogin')
-  return destino === '/agendar-cita' || destino === 'agendar-cita.html' ? '/agendar-cita' : '/'
+  const destino = leer(CLAVE_DESTINO)
+  borrar(CLAVE_DESTINO)
+  return destino === '/agendar-cita' || destino === 'agendar-cita.html'
+    ? '/agendar-cita'
+    : '/'
 }

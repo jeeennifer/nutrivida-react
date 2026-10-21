@@ -29,6 +29,14 @@ export function validarPrecio(valor) {
   return ''
 }
 
+export function validarStock(valor) {
+  const stock = Number(valor)
+  if (valor === '' || !Number.isInteger(stock) || stock < 0) {
+    return 'El stock debe ser un número entero mayor o igual a 0.'
+  }
+  return ''
+}
+
 export function validarTexto(valor, nombreCampo, largoMinimo, largoMaximo) {
   const texto = valor.trim()
 

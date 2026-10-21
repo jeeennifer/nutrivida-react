@@ -2,7 +2,7 @@ import { useNutrivida } from '../hooks/useNutrivida'
 import { useFormulario } from '../hooks/useFormulario'
 import { FormularioNutrivida } from '../components/organisms/FormularioNutrivida'
 import { FORMULARIOS } from '../data/formularios'
-import { validarTexto, validarPrecio } from '../utils/validaciones'
+import { validarTexto, validarPrecio, validarStock } from '../utils/validaciones'
 
 
 // CONTAINER: formulario de creación y edición de un plan.
@@ -34,16 +34,11 @@ export function EditorPlanContainer({ plan }) {
     const precio = Number(datos.precio)
     const stock = Number(datos.stock)
 
-    const stockInvalido =
-      datos.stock === '' || !Number.isInteger(stock) || stock < 0
-
     const errores = {
       nombre: validarTexto(datos.nombre, 'El nombre', 3, 100),
       etiqueta: validarTexto(datos.etiqueta, 'La categoría', 2, 50),
       precio: validarPrecio(datos.precio),
-      stock: stockInvalido
-        ? 'Los cupos deben ser un número entero igual o mayor a cero.'
-        : '',
+      stock: validarStock(datos.stock),
     }
 
     if (!form.comprobar(errores, 'Revisa los campos marcados antes de guardar.')) {

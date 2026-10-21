@@ -1,6 +1,5 @@
 import { useNutrivida } from '../hooks/useNutrivida'
-import { PortadaTemplate } from '../components/templates/PortadaTemplate'
-import { CONTENIDO } from '../data/contenido'
+import { GrillaPlanes } from '../components/organisms/GrillaPlanes'
 import { presentarPlan } from '../utils/presentacion'
 
 // CONTAINER: selecciona los primeros tres planes, como la portada original.
@@ -9,9 +8,10 @@ export function InicioContainer() {
   const destacados = planes.slice(0, 3).map(presentarPlan)
 
   return (
-    <PortadaTemplate
-      hero={CONTENIDO.hero}
+    <GrillaPlanes
       planes={destacados}
+      titulo="Algunos de nuestros planes"
+      subtitulo="PLANES DESTACADOS"
     />
   )
 }

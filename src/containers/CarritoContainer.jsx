@@ -4,6 +4,8 @@ import { useNutrivida } from '../hooks/useNutrivida'
 import { CarritoTemplate } from '../components/templates/CarritoTemplate'
 import { formatearPrecio } from '../utils/formato'
 import { presentarReservas } from '../utils/presentacion'
+import { ListaCarrito } from '../components/organisms/ListaCarrito'
+import { ResumenCarrito } from '../components/organisms/ResumenCarrito'
 
 // CONTAINER: controla el resumen y conserva el destino al pedir iniciar sesión.
 export function CarritoContainer() {
@@ -32,18 +34,23 @@ export function CarritoContainer() {
 
   return (
     <CarritoTemplate
-      listado={{
-        items: presentarReservas(datos.carrito),
-        onSumar: datos.agregarPlan,
-        onRestar: datos.restarPlan,
-        onEliminar: datos.eliminarDelCarrito,
-      }}
-      resumen={{
-        total: formatearPrecio(datos.total),
-        mensaje,
-        onVaciar: datos.vaciarCarrito,
-        onConfirmar: confirmar,
-      }}
+      titulo="Tu carrito"
+      lista={
+        <ListaCarrito
+          items={presentarReservas(datos.carrito)}
+          onSumar={datos.agregarPlan}
+          onRestar={datos.restarPlan}
+          onEliminar={datos.eliminarDelCarrito}
+        />
+      }
+      resumen={
+        <ResumenCarrito
+          total={formatearPrecio(datos.total)}
+          mensaje={mensaje}
+          onVaciar={datos.vaciarCarrito}
+          onConfirmar={confirmar}
+        />
+      }
     />
   )
 }

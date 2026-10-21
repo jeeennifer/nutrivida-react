@@ -1,21 +1,19 @@
 import { Col, Row } from 'react-bootstrap'
 import { TituloSeccion } from '../molecules/TituloSeccion'
-import { ListaCarrito } from '../organisms/ListaCarrito'
-import { ResumenCarrito } from '../organisms/ResumenCarrito'
 
 // TEMPLATE: distribuye el listado y el resumen de las reservas.
-export function CarritoTemplate({ listado, resumen }) {
+export function CarritoTemplate({ titulo, lista, resumen }) {
   return (
     <>
-      <TituloSeccion titulo="Tu carrito" />
+      <TituloSeccion titulo={titulo} />
 
       <Row className="nv-carrito align-items-start">
         <Col xs={12} lg={8}>
-          <ListaCarrito {...listado} />
+          {lista}
         </Col>
 
         <Col xs={12} lg={4}>
-          <ResumenCarrito {...resumen} />
+          {resumen}
         </Col>
       </Row>
     </>

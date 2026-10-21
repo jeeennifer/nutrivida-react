@@ -1,19 +1,14 @@
 import { Container } from 'react-bootstrap'
-import { HeroNutricion } from '../organisms/HeroNutricion'
-import { GrillaPlanes } from '../organisms/GrillaPlanes'
 
-// TEMPLATE: distribuye la portada y los planes destacados recibidos por props.
-export function PortadaTemplate({ hero, planes }) {
+// TEMPLATE: esqueleto de la portada. El hero va a todo el ancho
+// y el resto del contenido dentro del contenedor.
+export function PortadaTemplate({ hero, children }) {
   return (
     <>
-      <HeroNutricion contenido={hero} />
+      {hero}
 
       <Container fluid className="contenedor seccion">
-        <GrillaPlanes
-          planes={planes}
-          titulo="Algunos de nuestros planes"
-          subtitulo="PLANES DESTACADOS"
-        />
+        {children}
       </Container>
     </>
   )

@@ -19,6 +19,24 @@ export function validarCorreo(valor) {
   return ''
 }
 
+export function validarPrecio(valor) {
+  const precio = Number(valor)
+
+  if (valor === '' || !Number.isFinite(precio) || precio < 0) {
+    return 'El precio es obligatorio y no puede ser negativo.'
+  }
+
+  return ''
+}
+
+export function validarStock(valor) {
+  const stock = Number(valor)
+  if (valor === '' || !Number.isInteger(stock) || stock < 0) {
+    return 'El stock debe ser un número entero mayor o igual a 0.'
+  }
+  return ''
+}
+
 export function validarTexto(valor, nombreCampo, largoMinimo, largoMaximo) {
   const texto = valor.trim()
 

@@ -6,6 +6,7 @@ import { FormularioNutrivida } from '../components/organisms/FormularioNutrivida
 import { FORMULARIOS } from '../data/formularios'
 import { fechaLocalActual, formatearPrecio } from '../utils/formato'
 import { presentarReservas } from '../utils/presentacion'
+import { guardarDestinoTrasLogin } from '../utils/almacenamiento'
 
 // CONTAINER: fecha, horario, sesión y cupos se comprueban antes de confirmar.
 export function AgendarCitaContainer() {
@@ -51,7 +52,7 @@ export function AgendarCitaContainer() {
     const resultado = confirmarCita(fecha, hora)
 
     if (resultado.sinSesion) {
-      localStorage.setItem('destinoTrasLogin', '/agendar-cita')
+      guardarDestinoTrasLogin('/agendar-cita')
       navigate('/login')
       return
     }

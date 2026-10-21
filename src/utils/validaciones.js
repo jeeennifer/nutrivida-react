@@ -19,6 +19,16 @@ export function validarCorreo(valor) {
   return ''
 }
 
+export function validarPrecio(valor) {
+  const precio = Number(valor)
+
+  if (valor === '' || !Number.isFinite(precio) || precio < 0) {
+    return 'El precio es obligatorio y no puede ser negativo.'
+  }
+
+  return ''
+}
+
 export function validarTexto(valor, nombreCampo, largoMinimo, largoMaximo) {
   const texto = valor.trim()
 

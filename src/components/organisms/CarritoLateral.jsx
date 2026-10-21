@@ -1,7 +1,6 @@
-import { Button, Col, Offcanvas, Row } from 'react-bootstrap'
+import { Offcanvas } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { ImagenNutrivida } from '../atoms/ImagenNutrivida'
-import { ControlCupos } from '../molecules/ControlCupos'
+import { ItemCarrito } from '../molecules/ItemCarrito'
 
 // ORGANISMO: panel lateral controlado mediante props. Apertura y acciones pertenecen al container.
 export function CarritoLateral({abierto, items, total, onCerrar, onSumar, onRestar, onEliminar}) {
@@ -23,39 +22,14 @@ export function CarritoLateral({abierto, items, total, onCerrar, onSumar, onRest
         {items.length === 0 && <p>No tienes citas agendadas.</p>}
 
         {items.map((item) => (
-          <article className="item-carrito" key={item.id}>
-            <Row className="g-3">
-              <Col xs="auto">
-                <ImagenNutrivida
-                  className="img-carrito"
-                  src={item.imagen}
-                  alt={item.nombre}
-                />
-              </Col>
-
-              <Col className="min-width-0">
-                <strong>{item.nombre}</strong>
-                <ControlCupos
-                  item={item}
-                  onSumar={onSumar}
-                  onRestar={onRestar}
-                />
-              </Col>
-
-              <Col xs={12} className="item-carrito-acciones">
-                <p>Subtotal: {item.subtotalTexto}</p>
-                <Button
-                  type="button"
-                  className="btn-eliminar"
-                  variant="danger"
-                  onClick={() => onEliminar(item.id)}
-                  aria-label={`Eliminar ${item.nombre}`}
-                >
-                  Eliminar
-                </Button>
-              </Col>
-            </Row>
-          </article>
+          <ItemCarrito
+            key={item.id}
+            item={item}
+            compacto
+            onSumar={onSumar}
+            onRestar={onRestar}
+            onEliminar={onEliminar}
+          />
         ))}
       </Offcanvas.Body>
 

@@ -22,7 +22,7 @@ import { ConfirmacionPage } from './components/pages/reservas/ConfirmacionPage'
 import { NoEncontradaPage } from './components/pages/publicas/NoEncontradaPage'
 import './App.css'
 
-// COMPATIBILIDAD: conserva las diecinueve direcciones HTML originales.
+
 const RUTAS_ANTERIORES = [
   ['index.html', '/'],
   ['planes.html', '/planes'],

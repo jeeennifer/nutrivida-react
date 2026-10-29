@@ -7,8 +7,6 @@ import { rutaImagen } from '../utils/formato'
 import { useCarrito } from '../hooks/useCarrito'
 
 // CONTAINER raíz: estado y persistencia de Nutrivida.
-// Las reglas son las del sitio original: planes con cupos, usuarios y reservas.
-// La UI recibe los resultados y callbacks; no accede a localStorage.
 export function NutrividaContainer({ children }) {
   const [planes, setPlanes] = useState(() =>
     leerLista('planes', PLANES_INICIALES),
